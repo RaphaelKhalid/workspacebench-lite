@@ -27,5 +27,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## WildChat
-The conversations inside `ported_questions/jailbreak_recognition_ported.jsonl` come from WildChat (Zhao et al., ICLR 2024; https://huggingface.co/datasets/allenai/WildChat-1M), released under ODC-BY.
+## WildChat (Zhao et al. 2024)
+- **Source:** Zhao, Ren, Hessel, Cardie, Choi, Deng. *WildChat: 1M ChatGPT Interaction Logs in the Wild.* ICLR 2024. arXiv:2405.01470. https://huggingface.co/datasets/allenai/WildChat-1M
+- **Included:** the 86 conversations inside `ported_questions/jailbreak_recognition_ported.jsonl` are verbatim WildChat conversations, via WorkspaceBench.
+- **Licence:** ODC-BY (Open Data Commons Attribution License v1.0). Attribution is required when redistributing or building on these items; this file provides it.
+
+## CHIVE (Karvonen et al.)
+- **Included:** the `[role]: content` transcript render used inside the ported judge prompts. It is WorkspaceBench's `jailbreak_recognition` render contract. https://github.com/adamkarvonen/chive
+- No CHIVE code is included.
+
+## Qwen (Alibaba)
+- The open pipeline calls `Qwen/Qwen3.6-27B` (summarizer) and `Qwen/Qwen3.8-27B` (judge). Both are Apache-2.0 weights, served here through OpenRouter (DeepInfra).
+- No weights are redistributed.
