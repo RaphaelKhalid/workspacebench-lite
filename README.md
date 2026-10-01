@@ -1,5 +1,10 @@
 # WorkspaceBench-lite: an open-weights judge for `jailbreak_recognition`
 
+> **Parked (2026-10-01).** The results below concern the earlier jailbreak judge swap.
+> They do not establish fidelity or an under-$20 cost for the full benchmark. The newer
+> position-reduction implementation, archived protocol, and remaining validation work are
+> documented in [the fork's project status](https://github.com/RaphaelKhalid/workspace-bench/blob/main/docs/project-status.md). No further experiments are scheduled.
+
 **Qwen3.8-27B (open weights, Apache-2.0) with a one-paragraph prompt clarification reaches recognition κ = 0.714 against WorkspaceBench's Sonnet 5 judge (one-sided 95% lower bound 0.552). That clears the benchmark's κ ≥ 0.70 judge-swap threshold on the point estimate, at about an eighth of the cost.**
 
 Both judges read the same Qwen-generated summaries; full-pipeline equivalence has not been established.
