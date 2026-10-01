@@ -33,4 +33,4 @@ export OPENROUTER_API_KEY=sk-or-...
   - **Records:** `data/kev_train/<teacher>.jsonl.gz`.
   - **Recipe:** `kev.train --init_from jaredpalmer/kev-4b`, 2 epochs, lr 5e-5, batch 1 × accum 8, bf16, `--max_state 2560`, augmentations off.
   - **Cost:** about $2 on one A100. Our pod scripts are in [`pod/`](pod/).
-- **The full pipeline:** run the `open-jb` route (see the README) on `data/jlens_13site.jsonl.gz`, after gunzipping it.
+- **The full pipeline** (paid, resumable): `gunzip -k data/jlens_13site.jsonl.gz`, then `uv run python open_jb.py judge family=jailbreak_recognition readouts=data/jlens_13site.jsonl out=runs/open-judge allow_missing=True`.

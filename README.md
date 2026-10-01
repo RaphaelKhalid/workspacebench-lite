@@ -10,23 +10,29 @@ Both judges read the same Qwen-generated summaries; full-pipeline equivalence ha
 - **Cost:** about $907 per J-lens arm officially, vs about $220 for the open judge via OpenRouter. An estimate of about $60 self-hosted.
 - **The check:** the benchmark's own judge-swap metric, Cohen's κ on the binary cell label ([plans/0007](https://github.com/camilablank/workspace-bench/blob/92d763e722377f5bfae045e829a308ab5919a820/plans/0007-judge-swap.md)).
 
-## Use it
+## Use Qwen3.8-27B as the `jailbreak_recognition` judge
+You only need one file, [`open_jb.py`](open_jb.py), in a [WorkspaceBench](https://github.com/camilablank/workspace-bench) checkout. Run it in place of `wsbench`. `jailbreak_recognition` gets the open judge, and the other 26 families keep their own judges.
 ```bash
-git config --global core.longpaths true   # Windows only: WorkspaceBench has deeply nested files
-git clone --recursive https://github.com/RaphaelKhalid/workspacebench-lite
-cd workspacebench-lite && uv sync
+cd workspace-bench   # after its own `uv sync --extra dev`
+curl -O https://raw.githubusercontent.com/RaphaelKhalid/workspacebench-lite/main/open_jb.py
 export OPENROUTER_API_KEY=sk-or-...
 
-# free: print the judge prompt for a sample cell from WorkspaceBench's example readouts
-uv run python -m wsbjev judge family=jailbreak_recognition judge_model=open-jb dry_run=True \
-  readouts=third_party/workspace-bench/examples/readouts/jailbreak_recognition.jsonl out=runs/dry
+# free: print a judge prompt (the voice note is appended at call time)
+uv run python open_jb.py judge family=jailbreak_recognition out=outputs/toy/jb dry_run=True \
+  readouts=examples/readouts/jailbreak_recognition.jsonl
 
-# your own J-lens readouts
-uv run python -m wsbjev judge family=jailbreak_recognition judge_model=open-jb \
-  readouts=path/to/jlens.jsonl out=runs/open-judge
+# a whole arm, every family
+uv run python open_jb.py run all=True readouts_root=outputs/readouts/jlens out=outputs/judged/jlens
 ```
-- **`open-jb`:** summaries by `qwen/qwen3.6-27b`; verdicts by `qwen/qwen3.8-27b` with the [voice note](prompts/jb_v1_voice_note.txt) appended. Reasoning off, temperature 0, both pinned to DeepInfra.
-- **Numbers of record:** like any judge override, upstream doesn't count its runs as numbers of record.
+- **What changes:**
+  - Summaries are written by `qwen/qwen3.6-27b`.
+  - Verdicts come from `qwen/qwen3.8-27b` with the [voice note](prompts/jb_v1_voice_note.txt) appended.
+  - Reasoning is off and temperature is 0. Both models are pinned to DeepInfra.
+  - Prompts, schema, caching and scoring are upstream's, unchanged.
+- **Overrides:** `judge_model=` or `WSBENCH_JUDGE_MODEL` still wins, as in upstream.
+- **Not a number of record:** results name the judge `open-jb/qwen3.8-27b+voice-note`, with `pinned=False`. Like any judge override, upstream doesn't count these runs as numbers of record.
+- **Scope:** agreement was measured on summarized J-lens token readouts. Prose readouts (O-lens, NLA) skip the summarizer and haven't been measured.
+- **Tested** offline against WorkspaceBench `92d763e`.
 
 ## Results
 568 cells from 17 conversations held out from training and from writing the voice note; 200 other cells from them were used to audition teachers. κ is computed on the cells both judges judged.
