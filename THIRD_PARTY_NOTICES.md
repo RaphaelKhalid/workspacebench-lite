@@ -29,7 +29,7 @@ SOFTWARE.
 
 ## WildChat (Zhao et al. 2024)
 - **Source:** Zhao, Ren, Hessel, Cardie, Choi, Deng. *WildChat: 1M ChatGPT Interaction Logs in the Wild.* ICLR 2024. arXiv:2405.01470. https://huggingface.co/datasets/allenai/WildChat-1M
-- **Included:** the 86 conversations inside `ported_questions/jailbreak_recognition_ported.jsonl` are verbatim WildChat conversations, via WorkspaceBench.
+- **Included:** the conversations inside `ported_questions/` and `data/` (the judge prompts and the Kev training records) are verbatim WildChat conversations, via WorkspaceBench.
 - **Licence:** ODC-BY (Open Data Commons Attribution License v1.0). Attribution is required when redistributing or building on these items; this file provides it.
 
 ## CHIVE (Karvonen et al.)
@@ -38,4 +38,4 @@ SOFTWARE.
 
 ## Qwen (Alibaba)
 - The open pipeline calls `Qwen/Qwen3.6-27B` (summarizer) and `Qwen/Qwen3.8-27B` (judge). Both are Apache-2.0 weights, served here through OpenRouter (DeepInfra).
-- No weights are redistributed.
+- `data/` contains outputs of these models, of GLM-5.3 Flash (MIT) and of Kev-4B (Apache-2.0, jaredpalmer). No weights are redistributed.
