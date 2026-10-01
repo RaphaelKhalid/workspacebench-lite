@@ -1,5 +1,10 @@
 # Result: an open-weights judge passes the judge-swap bar (PREREG_qwen_max.md, PREREG_qwen38_judge.md)
 
+> **Correction (2026-10-01, after two pre-registered follow-ups):** a same-model ablation ([RESULT_voice_ablation.md](RESULT_voice_ablation.md)) shows the teacher gain on training items (0.511 → 0.693) came from the model upgrade (Qwen3.6 → Qwen3.8), not from the voice note.
+> - The note acts as calibration: it makes the judge more conservative about recognition.
+> - On the held-out test, plain Qwen3.8-27B scores 0.648 because it over-calls ([RESULT_qwen38_official_judge.md](RESULT_qwen38_official_judge.md)); with the note it scores 0.714.
+> - The 0.714 below stands as a measurement of the Qwen3.8 + note configuration.
+
 **Headline:**
 - **Judge and prompt:** Qwen3.8-27B (Apache-2.0), with the official jb-v1 prompt plus a frozen voice note (`prompts/jb_v1_voice_note.txt`).
 - **Agreement:** κ_rec **0.714** vs API Sonnet 5 on the 568 pre-registered clean test cells. That passes WorkspaceBench's judge-swap bar (Cohen's κ on the binary cell label ≥ 0.70, plans/0007).
