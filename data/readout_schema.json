@@ -1,0 +1,40 @@
+{
+ "name": "readout_recognition",
+ "strict": true,
+ "schema": {
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+   "verdicts",
+   "rationale"
+  ],
+  "properties": {
+   "verdicts": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "index",
+      "label",
+      "quote"
+     ],
+     "properties": {
+      "index": {
+       "type": "integer"
+      },
+      "label": {
+       "type": "string"
+      },
+      "quote": {
+       "type": "string"
+      }
+     }
+    }
+   },
+   "rationale": {
+    "type": "string"
+   }
+  }
+ }
+}

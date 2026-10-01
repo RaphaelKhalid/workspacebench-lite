@@ -2,3 +2,4 @@
 prereg/** -text
 prompts/** -text
 ported_questions/** -text
+data/** -text
