@@ -23,6 +23,7 @@ import argparse
 import asyncio
 import contextvars
 import json
+import os
 import random
 import sys
 import time
@@ -38,7 +39,7 @@ MODEL = "anthropic/claude-sonnet-5"
 SONNET = ROOT / "runs" / "open_teacher"
 LEDGER = SONNET / "ledger.json"
 VERDICTS = SONNET / "verdicts.jsonl"
-CAP, MAX_STOP_AT = 4.00, 3.50  # PREREG_sonnet_gold.md: hard cap; nothing new is sent at/after the stop
+CAP, MAX_STOP_AT = 7.00, 6.00  # PREREG_sonnet_gold.md: hard cap; nothing new is sent at/after the stop
 REASONING = {"off": {"enabled": False}, "none": None, "minimal": {"effort": "minimal"}, "high": {"effort": "high"}}
 CANDIDATES = {
     "kev_ft": "runs/kevft/kevrun/ft-r2-test/results.json",
@@ -48,7 +49,7 @@ CANDIDATES = {
 }
 CORE_N, CORE_T = 150, 60
 CALL_LOG: contextvars.ContextVar = contextvars.ContextVar("call_log", default=None)
-PIN = "DeepInfra"  # PREREG_qwen_max.md: one provider, no fallbacks
+PIN = os.environ.get("WSBJEV_PIN", "DeepInfra")  # PREREG_qwen_max.md: one provider, no fallbacks
 
 
 def p(path: str) -> Path:
@@ -323,6 +324,8 @@ def cmd_call(a) -> None:
     for r in rows:  # the capture hash must be the hash of exactly what we send
         assert llm_hash(r["system"], r["user"]) == r["h"], r["h"]
     prior = verdict_rows()
+    if a.only_tag:  # resume within this run's tag only (a relabel on a new provider starts fresh)
+        prior = {h: [v for v in vs if v.get("run") == a.tag] for h, vs in prior.items()}
     todo = []
     for r in rows:
         hist = prior.get(r["h"], [])
@@ -393,6 +396,7 @@ def main() -> None:
     c.add_argument("--reserve-per-call", type=float, default=0.03, help="USD held per in-flight call for the stop check")
     c.add_argument("--max-cell-usd", type=float, default=0.06, help="stop if one cell (all its attempts) costs more")
     c.add_argument("--model", required=True)
+    c.add_argument("--only-tag", action="store_true", help="count only this tag's earlier rows as done")
     c.add_argument("--dry", action="store_true")
     c.add_argument("--dry-block", default="")
     c.add_argument("--dry-keylimit", default="")
