@@ -12,6 +12,7 @@ Both judges read the same Qwen-generated summaries; full-pipeline equivalence ha
 
 ## Use it
 ```bash
+git config --global core.longpaths true   # Windows only: WorkspaceBench has deeply nested files
 git clone --recursive https://github.com/RaphaelKhalid/workspacebench-lite
 cd workspacebench-lite && uv sync
 export OPENROUTER_API_KEY=sk-or-...

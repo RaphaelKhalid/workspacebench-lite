@@ -13,6 +13,7 @@ Every number in the README can be recomputed from this repo. We checked that the
 
 ## Setup
 ```bash
+git config --global core.longpaths true   # Windows only: WorkspaceBench has deeply nested files
 git clone --recursive https://github.com/RaphaelKhalid/workspacebench-lite
 cd workspacebench-lite && uv sync
 export OPENROUTER_API_KEY=sk-or-...
