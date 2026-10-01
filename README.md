@@ -58,8 +58,6 @@ uv run python open_jb.py run all=True readouts_root=outputs/readouts/jlens out=o
 - **Grid:** agreement was measured on the 13-site read grid, not the ~144k-cell grid the cost figures assume.
 
 ## Cost
-Everything this project ran, excluding all Sonnet 5 work (regenerating its reference labels is costed in [REPRODUCE.md](REPRODUCE.md)):
-
 | what | compute | tokens | cost |
 |---|---|---|---|
 | Open-model API calls: judges, teacher labels, ablation | OpenRouter | 18.1M | $7.33 |
