@@ -14,10 +14,19 @@
 - **Why it matters:** upstream pins this family to Sonnet 5, because Gemini refused too many cells. It is about 80% of the benchmark's judging bill: $907 of $1,136 per J-lens arm.
 - **What this repo adds:** a drop-in open-weights judge for it, checked against Sonnet with the benchmark's own judge-swap metric (Cohen's κ on the binary cell label, [plans/0007](https://github.com/camilablank/workspace-bench/blob/92d763e722377f5bfae045e829a308ab5919a820/plans/0007-judge-swap.md)).
 
-## The fix
-- **The mismatch:** each readout is a third-person summary ("The model is ..."), but the rubric's examples are first-person ("I should refuse this"). Open models read that literally and miss most recognitions.
-- **The voice note:** [`prompts/jb_v1_voice_note.txt`](prompts/jb_v1_voice_note.txt) restates the rubric's own examples in the summary's voice. Nothing else in the prompt changes.
-- **Why that's allowed:** prompt review is what the benchmark prescribes when a swapped judge scores below 0.7.
+## The voice note: what it does
+- **The mismatch:** 99% of the pipeline's readout summaries talk about "the model ..." in the third person, but the rubric's examples are first-person ("I should refuse this").
+- **The note:** [`prompts/jb_v1_voice_note.txt`](prompts/jb_v1_voice_note.txt) restates the rubric's own examples in the summary's voice. Nothing else in the prompt changes.
+- **Measured effect:** two pre-registered checks with the model held fixed show that it is a calibration step, not a proven general fix. It consistently makes the judge more conservative about recognition, and its effect on κ differs by item set:
+
+  | Qwen3.8-27B | official prompt | + voice note |
+  |---|---|---|
+  | Held-out test (568 cells), κ_rec | 0.648 | **0.714** |
+  | Held-out test, recognitions (judge vs Sonnet's 30.0) | 45.8 (over-calls) | 30.0 |
+  | Training items (1,898 readouts), κ_rec | 0.753 | 0.711 (n.s.) |
+  | Training items, recognitions | 48 | 28 |
+
+- **Why it's allowed:** prompt review is what the benchmark prescribes when a swapped judge scores below 0.7.
 
 ## Quickstart
 ```bash
@@ -41,6 +50,7 @@ On 568 held-out cells from 17 conversations, which were never used for training 
 |---|---|---|
 | **Qwen3.8-27B + voice note** | **0.714** | 0.552 |
 | Qwen3.6-27B, official prompt | 0.693 | 0.527 |
+| Qwen3.8-27B, official prompt | 0.648 | 0.448 |
 | free Jev (zero-shot) | 0.654 | 0.459 |
 | Kev-4B distilled from Qwen3.6-27B | 0.639 | 0.471 |
 | Kev-4B distilled from Qwen3.8-27B + voice note | 0.582 | 0.419 |
@@ -49,13 +59,15 @@ On 568 held-out cells from 17 conversations, which were never used for training 
 ## How we got here
 1. **Port.** We ported the judge prompt byte-for-byte to an open 4B decision model, Kev-4B ([PORTING.md](PORTING.md)).
 2. **Distil.** We distilled Kev-4B from open teachers. The best reached 0.639: a student copies its teacher's mistakes.
-3. **Diagnose.** We found that the open teachers misread the first-person rule on third-person summaries. This was diagnosed on training conversations only.
-4. **Fix.** Qwen3.8-27B with the voice note agrees with Sonnet at 0.693 on training conversations (up from 0.511). On the held-out test it reaches **0.714**.
-5. **Open problem.** A 4B student of that teacher drops back to 0.582. Distilling the gain into a 4B judge is still unsolved.
+3. **Diagnose.** The open teachers' biggest disagreements with Sonnet were on third-person summaries of the model's own stance. That led to the voice note. This was diagnosed on training conversations only.
+4. **Upgrade.** On training conversations, agreement jumped from 0.511 (Qwen3.6-27B) to 0.693 (Qwen3.8-27B + note). A same-model ablation shows the model upgrade drove that jump, not the note.
+5. **Calibrate.** On the held-out test, Qwen3.8-27B over-calls recognition with the official prompt (0.648). With the note it matches Sonnet's recognition rate and reaches **0.714**.
+6. **Open problem.** A 4B student of that teacher drops back to 0.582. Distilling the gain into a 4B judge is still unsolved.
 
 ## Caveats
 - **The bar is passed on the point estimate only.** The one-sided 95% lower bound is 0.552, and over all 768 Sonnet-labelled test cells the score is 0.675.
-- **The held-out cells were read by several judges.** Each configuration was pre-registered (sha256 in [`prereg/`](prereg/)) and read once, and every read is reported in [`results/`](results/).
+- **The passing configuration needs the note.** Plain Qwen3.8-27B does not pass (0.648), and the note's effect on κ was the opposite sign on training items. Treat the pass as specific to this configuration.
+- **The held-out cells were read by several judges.** That includes two Qwen3.8 configurations; the note version was pre-registered and read first. Each configuration was pre-registered (sha256 in [`prereg/`](prereg/)) and read once, and every read is reported in [`results/`](results/).
 - **Our summaries come from Qwen3.6-27B.** The official pipeline's summaries come from Sonnet. The gold labels are Sonnet 5 judging these same summaries.
 - **No reported judge was trained on Sonnet outputs.** Sonnet labels serve as the evaluation gold, and once as a pre-registered teacher gate on training conversations.
 - **What's not in the repo:** model outputs, except the 86 ported questions.
