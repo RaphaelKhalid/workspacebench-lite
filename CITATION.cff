@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it, and cite WorkspaceBench (repo and write-up) as below."
+type: software
+title: "workspacebench-lite: an open-weights judge for WorkspaceBench's jailbreak_recognition family"
+authors:
+  - alias: RaphaelKhalid
+version: 0.1.0
+date-released: 2026-10-01
+repository-code: https://github.com/RaphaelKhalid/workspacebench-lite
+license: MIT
+references:
+  - type: software
+    title: "workspace-bench: evals of whether an activation-reading lens surfaces what a model computes but never writes"
+    authors:
+      - family-names: Blank
+        given-names: Camila
+      - family-names: Bhatia
+        given-names: Agam
+      - family-names: Ong
+        given-names: Euan
+      - family-names: Nanda
+        given-names: Neel
+    year: 2026
+    repository-code: https://github.com/camilablank/workspace-bench
+    url: https://www.lesswrong.com/posts/Zeg2JztbdhguL48uH/workspacebench-evaluating-interpretability-methods-for-the
+    license: MIT
+  - type: conference-paper
+    title: "WildChat: 1M ChatGPT Interaction Logs in the Wild"
+    authors:
+      - family-names: Zhao
+        given-names: Wenting
+      - family-names: Ren
+        given-names: Xiang
+      - family-names: Hessel
+        given-names: Jack
+      - family-names: Cardie
+        given-names: Claire
+      - family-names: Choi
+        given-names: Yejin
+      - family-names: Deng
+        given-names: Yuntian
+    year: 2024
+    conference:
+      name: "ICLR 2024"
+    identifiers:
+      - type: other
+        value: "arXiv:2405.01470"
