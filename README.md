@@ -57,6 +57,16 @@ uv run python open_jb.py run all=True readouts_root=outputs/readouts/jlens out=o
 - **Several reads of the same cells:** the test cells were read by several judges. Each configuration was pre-registered ([`prereg/`](prereg/)) and read once, and every read of the configurations here is in [`results/`](results/).
 - **Grid:** agreement was measured on the 13-site read grid, not the ~144k-cell grid the cost figures assume.
 
+## Cost
+Everything this project ran, excluding all Sonnet 5 work (regenerating its reference labels is costed in [REPRODUCE.md](REPRODUCE.md)):
+
+| what | compute | tokens | cost |
+|---|---|---|---|
+| Open-model API calls: judges, teacher labels, ablation | OpenRouter | 18.1M | $7.33 |
+| J-lens readouts, self-hosted Qwen3.6-27B, Kev-4B fine-tunes | ~8.5 A100-hours (RunPod) | ≥ 25.7M trained | $12.15 |
+| Early Jev decision-model judge ports | API | 61M (26M free) | $1.00 |
+| **Total** | | | **$20.48** |
+
 ## Reproduce
 - **Everything above can be recomputed:** see [REPRODUCE.md](REPRODUCE.md).
 - **What ships:** open-model data, in [`data/`](data/).
