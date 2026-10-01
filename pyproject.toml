@@ -20,3 +20,6 @@ packages = ["src/wsbjev"]
 [tool.uv.sources]
 # a submodule pinned at 92d763e, installed editable so WorkspaceBench finds its evals/ data
 workspace-bench = { path = "third_party/workspace-bench", editable = true }
+
+[tool.ruff]
+line-length = 100  # as upstream WorkspaceBench
