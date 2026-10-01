@@ -69,8 +69,6 @@ On 568 held-out cells from 17 conversations, which were never used for training 
 - **The passing configuration needs the note.** Plain Qwen3.8-27B does not pass (0.648), and the note's effect on κ was the opposite sign on training items. Treat the pass as specific to this configuration.
 - **The held-out cells were read by several judges.** That includes two Qwen3.8 configurations; the note version was pre-registered and read first. Each configuration was pre-registered (sha256 in [`prereg/`](prereg/)) and read once, and every read is reported in [`results/`](results/).
 - **Our summaries come from Qwen3.6-27B.** The official pipeline's summaries come from Sonnet. The gold labels are Sonnet 5 judging these same summaries.
-- **No reported judge was trained on Sonnet outputs.** Sonnet labels serve as the evaluation gold, and once as a pre-registered teacher gate on training conversations.
-- **What's not in the repo:** model outputs, except the 86 ported questions.
 
 ## Cost details
 | | measured |
