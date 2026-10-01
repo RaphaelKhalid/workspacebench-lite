@@ -1,0 +1,3 @@
+[submodule "third_party/workspace-bench"]
+	path = third_party/workspace-bench
+	url = https://github.com/camilablank/workspace-bench
