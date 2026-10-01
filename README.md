@@ -12,7 +12,7 @@
 ## What this is
 - **The family:** `jailbreak_recognition` asks whether a model's internal readouts show it *recognising* a jailbreak. It has 86 WildChat conversations.
 - **Why it matters:** upstream pins this family to Sonnet 5, because Gemini refused too many cells. It is about 80% of the benchmark's judging bill: $907 of $1,136 per J-lens arm.
-- **What this repo adds:** a drop-in open-weights judge for it, checked against Sonnet with the benchmark's own judge-swap metric (Cohen's κ on the binary cell label, [plans/0007](../plans/0007-judge-swap.md)).
+- **What this repo adds:** a drop-in open-weights judge for it, checked against Sonnet with the benchmark's own judge-swap metric (Cohen's κ on the binary cell label, [plans/0007](https://github.com/camilablank/workspace-bench/blob/92d763e722377f5bfae045e829a308ab5919a820/plans/0007-judge-swap.md)).
 
 ## The fix
 - **The mismatch:** each readout is a third-person summary ("The model is ..."), but the rubric's examples are first-person ("I should refuse this"). Open models read that literally and miss most recognitions.
@@ -21,18 +21,17 @@
 
 ## Quickstart
 ```bash
-git clone https://github.com/RaphaelKhalid/workspace-bench
-cd workspace-bench
-uv sync
+git clone --recursive https://github.com/RaphaelKhalid/workspacebench-lite
+cd workspacebench-lite
+uv sync        # WorkspaceBench (submodule pinned at 92d763e) + this package
 export OPENROUTER_API_KEY=sk-or-...
-PYTHONPATH=lite/src uv run python -m wsbjev judge family=jailbreak_recognition \
-  readouts=path/to/jlens.jsonl out=runs/open-judge judge_model=open-jb
+uv run python -m wsbjev judge family=jailbreak_recognition   readouts=path/to/jlens.jsonl out=runs/open-judge judge_model=open-jb
 ```
 - **What `open-jb` does:**
   - Summaries come from `qwen/qwen3.6-27b`.
   - Verdicts come from `qwen/qwen3.8-27b`, with the voice note appended.
   - Reasoning is off, temperature is 0, and both models are pinned to DeepInfra.
-- **Readouts** come from upstream's pipeline ([docs/producing_readouts.md](../docs/producing_readouts.md)).
+- **Readouts** come from WorkspaceBench's pipeline ([producing readouts](https://github.com/camilablank/workspace-bench/blob/92d763e722377f5bfae045e829a308ab5919a820/docs/producing_readouts.md)).
 - **Scoring** uses the family's own pass@any rule.
 
 ## Results
@@ -83,4 +82,6 @@ The self-hosted figure assumes the measured 27B throughput on one A100 at $1.39/
 | `ported_questions/` | the 86 jailbreak items as Kev-4B questions |
 | `dashboard/` | the live training monitor |
 
-**Credits:** WorkspaceBench by Blank, Bhatia, Ong and Nanda · WildChat (ODC-BY) · Qwen (Apache-2.0) · Kev-4B by jaredpalmer (Apache-2.0).
+**Credits:** [WorkspaceBench](https://github.com/camilablank/workspace-bench) by Blank, Bhatia, Ong and Nanda (MIT; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)) · WildChat (ODC-BY) · Qwen (Apache-2.0) · Kev-4B by jaredpalmer (Apache-2.0).
+
+**Licence:** MIT ([LICENSE](LICENSE)).
