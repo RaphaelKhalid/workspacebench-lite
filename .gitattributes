@@ -1,0 +1,4 @@
+# keep frozen files byte-identical on every OS (sha256 in prereg/, the voice note sent to the judge)
+prereg/** -text
+prompts/** -text
+ported_questions/** -text
