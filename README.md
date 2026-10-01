@@ -32,7 +32,7 @@ uv run python open_jb.py run all=True readouts_root=outputs/readouts/jlens out=o
 - **Overrides:** `judge_model=` or `WSBENCH_JUDGE_MODEL` still wins, as in upstream.
 - **Not a number of record:** results name the judge `open-jb/qwen3.8-27b+voice-note`, with `pinned=False`. Like any judge override, upstream doesn't count these runs as numbers of record.
 - **Scope:** agreement was measured on summarized J-lens token readouts. Prose readouts (O-lens, NLA) skip the summarizer and haven't been measured.
-- **Tested** offline against WorkspaceBench `92d763e`.
+- **Tested** against WorkspaceBench `92d763e`: offline, and live on one conversation (65 cells, 130 calls, all succeeded, $0.04).
 
 ## Results
 568 cells from 17 conversations held out from training and from writing the voice note; 200 other cells from them were used to audition teachers. κ is computed on the cells both judges judged.
