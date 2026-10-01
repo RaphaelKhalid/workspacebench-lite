@@ -82,6 +82,21 @@ The self-hosted figure assumes the measured 27B throughput on one A100 at $1.39/
 | `ported_questions/` | the 86 jailbreak items as Kev-4B questions |
 | `dashboard/` | the live training monitor |
 
+## Cite
+This work builds on WorkspaceBench. Following its guidelines, please cite **the repo and the write-up**:
+
+```bibtex
+@misc{blank2026workspacebench,
+  author       = {Blank, Camila and Bhatia, Agam and Ong, Euan and Nanda, Neel},
+  title        = {WorkspaceBench: Evaluating Interpretability Methods for the Global Workspace},
+  year         = {2026},
+  howpublished = {\url{https://www.lesswrong.com/posts/Zeg2JztbdhguL48uH/workspacebench-evaluating-interpretability-methods-for-the}}
+}
+```
+- **WorkspaceBench repo:** https://github.com/camilablank/workspace-bench
+- **The items are WildChat conversations.** Zhao, Ren, Hessel, Cardie, Choi, Deng, *WildChat: 1M ChatGPT Interaction Logs in the Wild*, ICLR 2024 (arXiv:2405.01470), ODC-BY.
+- **Citing this repo:** use [`CITATION.cff`](CITATION.cff), which feeds GitHub's "Cite this repository" button.
+
 **Credits:** [WorkspaceBench](https://github.com/camilablank/workspace-bench) by Blank, Bhatia, Ong and Nanda (MIT; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)) · WildChat (ODC-BY) · Qwen (Apache-2.0) · Kev-4B by jaredpalmer (Apache-2.0).
 
 **Licence:** MIT ([LICENSE](LICENSE)).
