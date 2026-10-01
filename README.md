@@ -67,7 +67,7 @@ On 568 held-out cells from 17 conversations, which were never used for training 
 ## Caveats
 - **The bar is passed on the point estimate only.** The one-sided 95% lower bound is 0.552, and over all 768 Sonnet-labelled test cells the score is 0.675.
 - **The passing configuration needs the note.** Plain Qwen3.8-27B does not pass (0.648), and the note's effect on κ was the opposite sign on training items. Treat the pass as specific to this configuration.
-- **The held-out cells were read by several judges.** That includes two Qwen3.8 configurations; the note version was pre-registered and read first. Each configuration was pre-registered (sha256 in [`prereg/`](prereg/)) and read once, and every read is reported in [`results/`](results/).
+- **The held-out cells were read by several judges.** That includes two Qwen3.8 configurations; the note version was pre-registered and read first. Each configuration was pre-registered (sha256 in [`prereg/`](prereg/)) and read once, and every read of the configurations in this repo is reported in [`results/`](results/).
 - **Our summaries come from Qwen3.6-27B.** The official pipeline's summaries come from Sonnet. The gold labels are Sonnet 5 judging these same summaries.
 
 ## Cost details

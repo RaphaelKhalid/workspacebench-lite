@@ -1,8 +1,8 @@
-"""PREREG_astra_teacher.md stage 1: kappa(Astra, Sonnet) on the 200 audition cells, with Qwen, Kev-ft
-and Jev scored on the same cells. Uses sonnet_b1's estimator unchanged (weights N_h/n_h recomputed on
+"""Audition scorer: kappa(candidate, Sonnet) on the 200 audition cells, with Qwen, Kev-ft and Jev
+scored on the same cells. Uses sonnet_b1's estimator unchanged (weights N_h/n_h recomputed on
 these 200 cells, 10,000-item bootstrap, seed 0).
 
-    python scripts/astra_audition.py --astra runs/astra_teacher/fam_audition/results.json
+    python scripts/astra_audition.py --name "<candidate>" --astra runs/<candidate>/fam/results.json
 """
 
 from __future__ import annotations
@@ -20,8 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--astra", required=True)
-    ap.add_argument("--out", default="runs/astra_teacher/audition.json")
-    ap.add_argument("--name", default="Astra (in app)")
+    ap.add_argument("--out", default="runs/audition.json")
+    ap.add_argument("--name", default="candidate")
     a = ap.parse_args()
     items = sorted(json.loads((ROOT / "runs/kevtrain/splits.json").read_text(encoding="utf-8"))["test_items"])
     st = json.loads((ROOT / "runs/sonnet/strata.json").read_text(encoding="utf-8"))

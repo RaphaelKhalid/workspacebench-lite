@@ -28,7 +28,7 @@
 - **The voice note.** The rubric's test is stance and voice, written with first-person examples. Every readout in this pipeline is a third-person summary. The note restates the rubric's own examples in the summary voice and adds no new decision.
   - It is the prompt-review remedy the benchmark prescribes when κ < 0.7 (plans/0000 §7).
   - It was frozen (sha256 7f744e7a…) before any test-cell call.
-- **Sonnet's role.** Sonnet labels were never training targets. Sonnet's training-item labels were used once, as a pre-registered gate.
+- **Sonnet's role.** In the experiments reported here, Sonnet's training-item labels were used only for evaluation: the teacher diagnosis, the gate and the ablation.
 - **Teacher gate result.** The new teacher scored κ_rec 0.693 on 1,799 training readouts, against 0.511 for Qwen3.6-27B.
 
 ## Caveats (state with the headline)

@@ -48,8 +48,8 @@
 - It does **not** show that a cheap judge can replace Sonnet at the benchmark's κ ≥ 0.70 bar on this
   family. That is the pre-registered answer.
 - It **does** show that the student reproduces its teacher's agreement with Sonnet at a fraction of
-  the cost. So the next lever is **the teacher's labels, not model size**: train on Sonnet labels
-  from non-test items.
+  the cost. So the next lever is **the teacher's labels, not model size**: a teacher that agrees
+  with Sonnet more closely.
 - **The instrument deviation stands.** The judge of record uses the Anthropic SDK; we used
   OpenRouter with no reasoning field, which ran adaptive thinking just as the pinned call does.
 - **The Sonnet-vs-Sonnet re-run ceiling was not measured**, here or upstream. If Sonnet only agrees
