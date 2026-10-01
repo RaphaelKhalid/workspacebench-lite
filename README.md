@@ -68,8 +68,8 @@ uv run python -m wsbjev judge family=jailbreak_recognition judge_model=open-jb \
 - **Human audit:** check disagreements against human judgment. Agreeing with Sonnet shows imitation of an instrument, not correctness.
 - **Engineering:** a self-hosted (`vllm:`) route with the voice note, and a 4B judge that keeps the gain.
 
-## Cite
-This builds on WorkspaceBench. Following its guidelines, cite the repo and the write-up:
+## Cite WorkspaceBench
+This builds on WorkspaceBench. If you use it, cite its repo and write-up, as its guidelines ask:
 ```bibtex
 @misc{blank2026workspacebench,
   author       = {Blank, Camila and Bhatia, Agam and Ong, Euan and Nanda, Neel},
@@ -79,5 +79,4 @@ This builds on WorkspaceBench. Following its guidelines, cite the repo and the w
 }
 ```
 - **Data:** the conversations come from WildChat (Zhao et al., ICLR 2024, ODC-BY).
-- **Citing this repo:** use [`CITATION.cff`](CITATION.cff).
-- **Credits and licences:** [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). This repo is MIT ([LICENSE](LICENSE)).
+- **Licence:** this repo's own code and docs are public domain ([The Unlicense](LICENSE)). Third-party material keeps its own licence ([THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)).
