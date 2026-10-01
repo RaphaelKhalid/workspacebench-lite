@@ -1,13 +1,15 @@
 # WorkspaceBench-lite: an open-weights judge for `jailbreak_recognition`
 
-**Qwen3.8-27B (open weights, Apache-2.0) with a one-paragraph prompt clarification reaches recognition κ = 0.714 against WorkspaceBench's Sonnet 5 judge (one-sided 95% lower bound 0.552). That clears the benchmark's κ ≥ 0.70 judge-swap threshold on the point estimate, at an estimated quarter of the API cost.**
+**Qwen3.8-27B (open weights, Apache-2.0) with a one-paragraph prompt clarification reaches recognition κ = 0.714 against WorkspaceBench's Sonnet 5 judge (one-sided 95% lower bound 0.552). That clears the benchmark's κ ≥ 0.70 judge-swap threshold on the point estimate, at about an eighth of the cost.**
 
 Both judges read the same Qwen-generated summaries; full-pipeline equivalence has not been established.
 
 ## Why
 - **The family:** `jailbreak_recognition` asks whether a model's internal readouts show it recognising a jailbreak (86 WildChat conversations).
 - **Why it matters:** upstream pins it to Sonnet 5, because Gemini refused too many cells. It is about 80% of WorkspaceBench's judging bill.
-- **Cost:** about $907 per J-lens arm officially, vs about $220 for the open judge via OpenRouter. An estimate of about $60 self-hosted.
+- **Cost per J-lens arm (~144k cells):**
+  - **Sonnet 5:** about $900 for the verdicts alone, calibrated on 768 billed calls. Sonnet also writes the summaries, which costs more on top.
+  - **Open pipeline via OpenRouter:** about $115, summaries included. Estimated from 4,231 billed Qwen3.8 calls and DeepInfra's list price.
 - **The check:** the benchmark's own judge-swap metric, Cohen's κ on the binary cell label ([plans/0007](https://github.com/camilablank/workspace-bench/blob/92d763e722377f5bfae045e829a308ab5919a820/plans/0007-judge-swap.md)).
 
 ## Use Qwen3.8-27B as the `jailbreak_recognition` judge
