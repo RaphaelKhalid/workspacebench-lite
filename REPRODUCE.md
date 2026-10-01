@@ -2,14 +2,13 @@
 
 Every number in the README can be recomputed from this repo. We checked that the commands below reproduce the published numbers exactly, confidence intervals included, from our own Sonnet labels.
 
-## What ships, what doesn't
+## What ships
 - **Ships, in [`data/`](data/):** open data only.
   - The official judge prompts for the 768 test cells and the 3,529 training prompts. They're checked byte for byte against WorkspaceBench's own prompt via their sha256.
   - Each open judge's per-cell labels.
   - The Kev-4B training records.
   - The J-lens readouts.
   - The item splits and sampling strata.
-- **Doesn't ship: Sonnet 5's labels.** WorkspaceBench doesn't redistribute judge verdicts either. You regenerate them with the script below. Sonnet's labels can vary slightly from run to run, so regenerated numbers may move a little.
 
 ## Setup
 ```bash
@@ -28,6 +27,7 @@ export OPENROUTER_API_KEY=sk-or-...
 | The teacher gate and the voice-note ablation | `uv run python scripts/reproduce.py train` | free |
 | Re-run an open judge (it joins the table) | `uv run python scripts/reproduce.py judge --model qwen/qwen3.8-27b --voice-note --name mine` | ≈ $0.40 |
 
+- **Sonnet varies a little between runs,** so recomputed numbers may move slightly.
 - **Resumable:** the paid commands can be stopped and restarted, and they stop before passing `--max-usd`.
 - **Kev-4B students:**
   - **Records:** `data/kev_train/<teacher>.jsonl.gz`.

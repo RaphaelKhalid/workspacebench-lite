@@ -1,4 +1,4 @@
-"""Reproduce the README numbers from data/ (open-model outputs only; Sonnet's labels are regenerated, not shipped).
+"""Reproduce the README numbers from data/.
 
 uv run python scripts/reproduce.py gold                   # Sonnet 5 labels on the 768 test prompts (~$4.40)
 uv run python scripts/reproduce.py table                  # the README results table

@@ -68,7 +68,6 @@ uv run python open_jb.py run all=True readouts_root=outputs/readouts/jlens out=o
 ## Reproduce
 - **Everything above can be recomputed:** see [REPRODUCE.md](REPRODUCE.md).
 - **What ships:** open-model data, in [`data/`](data/).
-- **What doesn't:** Sonnet 5's labels. They aren't redistributed (WorkspaceBench doesn't redistribute them either); `scripts/reproduce.py gold` regenerates them for about $4.40.
 
 ## Upstream contributions
 - [#66](https://github.com/camilablank/workspace-bench/pull/66): a judge override also changes the summarizer (the README said otherwise).
