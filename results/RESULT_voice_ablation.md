@@ -21,6 +21,7 @@
 
 **What still holds.**
 - **Summary voice:** 99% of the pipeline's summaries describe "the model" in the third person, while the rubric's examples are first-person. That is a fact about the instrument, but this ablation does not show that it lowers a strong judge's agreement.
-- **The test result:** the held-out 0.714 (PREREG_qwen38_judge.md) stands as a measurement of the Qwen3.8 + note configuration. The note is not why it passes.
+- **The test result:** the held-out 0.714 (PREREG_qwen38_judge.md) stands as a measurement of the Qwen3.8 + note configuration. This ablation does not show that the note raises κ in general.
+- **Correction (2026-10-23):** an earlier version of this file said "The note is not why it passes." That was written before plain Qwen3.8 was read on the test cells. That later read (RESULT_qwen38_official_judge.md) scored 0.648, below the 0.70 bar. So on the test cells the pass does depend on the note. It works there by cutting over-called recognitions, not by a general gain in κ.
 
 **Spend.** OpenRouter $3.21: Qwen3.8 official arm $1.02, Qwen3.6 on DeepInfra $0.55, Qwen3.6 on Alibaba $1.64. That is within the $3.25 hard stop.
